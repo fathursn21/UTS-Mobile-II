@@ -25,4 +25,3 @@ val allWords: Set<String> =
         "animal",
         "auto",
     )
-val allNewWords : MutableSet<String> = allWords as MutableSet<String>
