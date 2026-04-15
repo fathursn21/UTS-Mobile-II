@@ -16,12 +16,14 @@
 
 package com.example.unscramble.ui
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.unscramble.data.MAX_NO_OF_WORDS
 import com.example.unscramble.data.SCORE_INCREASE
+import com.example.unscramble.data.allNewWords
 import com.example.unscramble.data.allWords
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,8 +44,9 @@ class GameViewModel : ViewModel() {
 
     // Set of words used in the game
     private var usedWords: MutableSet<String> = mutableSetOf()
-    private lateinit var currentWord: String
 
+    private lateinit var currentWord: String
+    private lateinit var newWord: String
     init {
         resetGame()
     }
@@ -131,12 +134,19 @@ class GameViewModel : ViewModel() {
 
     private fun pickRandomWordAndShuffle(): String {
         // Continue picking up a new random word until you get one that hasn't been used before
-        currentWord = allWords.random()
+        currentWord = allNewWords.random()
         return if (usedWords.contains(currentWord)) {
             pickRandomWordAndShuffle()
         } else {
             usedWords.add(currentWord)
             shuffleCurrentWord(currentWord)
         }
+    }
+
+    fun addNewWord(inputNewWord : String){
+        newWord = inputNewWord
+        allNewWords.add(newWord)
+        updateUserGuess("")
+//        updateUserGuess(allNewWords.toString())
     }
 }

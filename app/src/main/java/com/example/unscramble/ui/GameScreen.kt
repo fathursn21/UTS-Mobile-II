@@ -107,6 +107,16 @@ fun GameScreen(gameViewModel: GameViewModel = viewModel()) {
                 )
             }
 
+            Button(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { gameViewModel.addNewWord(gameViewModel.userGuess)}
+            ) {
+                Text(
+                    text = stringResource(R.string.add_word),
+                    fontSize = 16.sp
+                )
+            }
+
             OutlinedButton(
                 onClick = { gameViewModel.skipWord() },
                 modifier = Modifier.fillMaxWidth()
@@ -183,6 +193,7 @@ fun GameLayout(
                 textAlign = TextAlign.Center,
                 style = typography.titleMedium
             )
+
             OutlinedTextField(
                 value = userGuess,
                 singleLine = true,
@@ -212,6 +223,7 @@ fun GameLayout(
         }
     }
 }
+
 
 /*
  * Creates and shows an AlertDialog with final score.
